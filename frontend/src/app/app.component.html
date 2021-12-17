@@ -1,0 +1,14 @@
+<div class="mainHeader" [ngClass.xs]="'mainHeaderXSmall'">
+    <div id="imgDiv" [ngClass.xs]="'hideImgDiv'">
+        <img src="http://localhost:4000/api/products/images/my-online-grocery-store.jpg">
+    </div>
+    <div id="headAndLinks">
+        <h1>{{title}}</h1>
+
+        <a routerLink="login">Login</a> |
+        <a routerLink="new-user-login-info">Register</a> |
+        <a routerLink="login" (click)="logout()">Logout</a>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

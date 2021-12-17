@@ -1,0 +1,35 @@
+<div id="personalGreeting">
+    <h2>Hello,
+        <span *ngIf="!firstName">Guest!</span>
+        <span *ngIf="firstName">{{firstName}}</span>
+    </h2>
+    <div *ngIf="error?.status===0" class="errorClass">Unknown error, please try again later.</div>
+    <div *ngIf="error?.status!==0">
+        <h3>There are currently {{numberOfProductsInStore}} available products in our store.</h3>
+
+        <h3>So far, we had {{numberOfOrdersSoFar}} orders submitted in our store.</h3>
+
+        <div *ngIf="activeCart">
+            You have an open cart from {{activeCart.createDate | date}} <br>
+            <div *ngIf="numberOfCartItems===0">You currently don't have any products in your cart.</div>
+            <div *ngIf="numberOfCartItems>0">Products in cart: {{numberOfProductsInCart}} (quantity:
+                {{numberOfCartItems}}) <br>
+                Amount due: ${{totalActiveCartAmount | number : '1.2'}}</div> <br>
+            <button mat-raised-button routerLink="/main/products/all" [state]="{data:activeCart}">Continue Shopping
+                <mat-icon>shopping_cart</mat-icon>
+            </button>
+        </div>
+        <div *ngIf="!activeCart && recentOrder">
+            <div>Your last purchase was on {{recentOrder.orderDate | date}} </div><br>
+            <button mat-raised-button (click)="startNewCart()">Start Shopping<mat-icon>add_shopping_cart</mat-icon>
+            </button>
+        </div>
+        <div *ngIf="!activeCart && noActiveCart && !recentOrder && noRecentPurchase">
+            <div>Welcome to your first shopping, {{firstName}}!</div> <br>
+            <button mat-raised-button (click)="startNewCart()">Start Your First Shopping<mat-icon>add_shopping_cart
+                </mat-icon></button>
+        </div>
+        <div class="errorClass" *ngIf="error?.error.message">{{error.error.message}}</div>
+    </div>
+
+</div>

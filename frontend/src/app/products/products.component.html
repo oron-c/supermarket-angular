@@ -1,0 +1,47 @@
+<div *ngIf="error" class="errorClass">
+    <div *ngIf="error?.status!==0" class="errorClass">{{error.error.message}}</div>
+</div>
+
+<div fxLayout="row wrap" fxLayoutGap="2px grid" fxLayoutAlign="center">
+    <div *ngFor="let product of products" class="productsDiv">
+
+        <mat-card class="productsCard" (click)="cardHasClicked(product)">
+            <mat-card-header>
+                <mat-card-title>{{product.productName}}</mat-card-title>
+                <mat-card-subtitle>${{product.price | number : '1.2'}}</mat-card-subtitle>
+
+            </mat-card-header>
+            <mat-card-content>
+                <img [src]="imageUrl + product.image" />
+            </mat-card-content>
+            <mat-card-actions>
+
+                <mat-icon class="icon" *ngIf="permission==='user'" (click)="openQuantityModal(product)">
+                    add_shopping_cart</mat-icon>
+
+                <mat-icon class=icon *ngIf="permission==='admin'" (click)="openEditComponent(product.productId)">edit
+                </mat-icon>
+            </mat-card-actions>
+        </mat-card>
+
+    </div>
+</div>
+
+<div class="errorClass" *ngIf="noProductsToShow">No products to show</div>
+<div class="errorClass" *ngIf="searchedProductWasNotFound">Product "{{productToFind}}" was not found!</div>
+
+
+
+<ng-template #callQuantityDialog>
+    <h2 matDialogTitle>How many {{productToAddToCart.productName}} would you like?</h2>
+    <div id="productQuantityDiv">
+        <button mat-raised-button (click)="quantityMinus()" [disabled]="quantityToAdd<1">-</button>
+        <span id="productQuantity">{{quantityToAdd}}</span>
+        <button mat-raised-button (click)="quantityPlus()">+</button>
+    </div>
+    <mat-dialog-actions>
+        <button mat-raised-button matDialogClose="no">Close</button>
+        <button mat-raised-button matDialogClose="yes" (click)="addToCart(productToAddToCart, quantityToAdd)"
+            [disabled]="quantityToAdd < 1">Add</button>
+    </mat-dialog-actions>
+</ng-template>

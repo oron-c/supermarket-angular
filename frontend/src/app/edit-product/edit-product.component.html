@@ -1,0 +1,62 @@
+<div id="editProductComponentDiv">
+    <div *ngIf="error" class="errorClass">
+        <div *ngIf="error?.error.categoryId">{{error.error.categoryId}}</div>
+        <div *ngIf="error?.error.productName">{{error.error.productName}}</div>
+        <div *ngIf="error?.error.categoryId">{{error.error.categoryId}}</div>
+        <div *ngIf="error?.error.price">{{error.error.price}}</div>
+        <div *ngIf="error?.error.message">{{error.error.message}}</div>
+    </div>
+
+    <form [formGroup]="editProductForm" (ngSubmit)="editProduct()">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Product Name</mat-label>
+            <input type="text" matInput formControlName="productNameControl" required> <br>
+            <mat-error *ngIf="productNameControl.errors?.required && productNameControl.touched">
+                Product name is requierd!
+            </mat-error>
+            <mat-error
+                *ngIf="(productNameControl.errors?.minlength || productNameControl.errors?.maxlength) && productNameControl.touched">
+                Product name must be 2-30 characters long!
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Category</mat-label>
+            <select matNativeControl formControlName="categoryIdControl" required>
+                <option value="">Select</option>
+                <option *ngFor="let category of categoriesList" [value]="category.categoryId">{{category.categoryName}}
+                </option>
+            </select>
+            <mat-error *ngIf="categoryIdControl.errors?.required && categoryIdControl.touched">Category is requierd!
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Price</mat-label>
+            <input type="number" matInput formControlName="productPriceControl" required> <br>
+            <mat-error *ngIf="productPriceControl.errors?.required && productPriceControl.touched">
+                Price is requierd!
+            </mat-error>
+            <mat-error *ngIf="productPriceControl.errors?.min && productPriceControl.touched">
+                Price must be greather than 0.1!
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Image</mat-label>
+            <input matInput disabled>
+            <input type="file" formControlName="imageControl" accept="image/*" (change)="saveImage($event)"> <br>
+        </mat-form-field>
+
+        <div id="saveOrCancelBtnDiv">
+            <div>
+                <button type="button" mat-raised-button (click)="hideEditComponent()">Cancel</button>
+            </div>
+            <div>
+                <button mat-raised-button type="submit"
+                    [disabled]="productNameControl.errors || categoryIdControl.errors || productPriceControl.errors">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

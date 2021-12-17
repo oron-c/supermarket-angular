@@ -1,0 +1,197 @@
+body {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.layoutMainManagement {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.searchProductDivAdmin {
+    height: 6em;;
+    display: grid;
+    grid-template-columns: 85% 15%;
+    text-align: left;
+    margin-right: 1em;
+}
+
+.categoriesListMenu {
+    position: sticky;
+    top: 7em;
+    z-index: 1;
+    width: fit-content;
+    margin: auto;
+}
+
+.hideMainMenu {
+    height: 0;
+    width: 0;
+    overflow-y: auto;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.searchBoxAndBtn {
+   flex: 85%; 
+   min-width: fit-content;
+}
+
+.secondHeader {
+    flex: 15%;
+    font-size: larger;
+    font-weight: bold;
+    text-align: end;
+    padding-top: 2em;   
+}
+
+.searchProductDivAdmin mat-form-field {
+    max-width: 70%;
+}
+
+.addProductButton {
+    display: inline-block;
+    padding: 0 2em 0 0;
+    cursor: pointer;
+}
+
+.hideAddOrEditProductDiv.showAddOrEditDivSmallScreen {
+    position: fixed;
+    top: 5em;
+    bottom: 2em;
+    width: 75%;
+    min-width: calc(fit-content + 2em);
+    margin-right: calc(12.5% - 2em);
+    overflow-y: auto;
+    z-index: 2;
+    background-color: lightblue;
+    visibility: visible;
+    opacity: 1;
+}
+
+.showOnlyMainDiv{
+    width: 100%;
+    transition: all .3s linear;
+}
+
+.showOnlyMainDiv.showMainDivAndAddOrEditDiv{
+    width: 72%;
+}
+
+.showOnlyMainDiv.showOnlyMainDivSmallScreen {
+    width: 100%;
+}
+
+.hideAddOrEditProductDiv.showAddOrEditDiv {
+    position: fixed;
+    left: 2em;
+    top: 15em;
+    bottom: 2em;
+    width: 25%;
+    background-color: lightblue;
+    height: fit-content;
+    max-height: calc(100% - 17em);
+    overflow-y: auto;
+    visibility: visible;
+    opacity: 1;
+}
+
+.hideAddOrEditProductDiv {
+    position: fixed;
+    left: 2em;
+    top: 15em;
+    overflow: hidden;
+    width: 0%;
+    height: 100%;
+    transform: translate(0);
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s linear;
+}
+
+.smallScreenMenu {
+    position: fixed;
+    top: 5em;
+    left: 2em;
+    overflow: hidden;
+    width: 0%;
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(-5em);
+    transition: all .3s linear;
+}
+
+.smallScreenMenu.showSmallScreenMenu {
+    position: fixed;
+    left: 7em;
+    top: 5em;
+    width: 50%;
+    height: fit-content;
+    z-index: 2;
+    visibility: visible;
+    opacity: 1;
+    background-color: lightskyblue;
+}
+
+.showSmallScreenMenu .smallScreenMenuItem {
+    padding: 0.5em;
+}
+
+.smallScreenMenuItem span, #closeMenu span {
+    width: fit-content;
+    cursor: pointer; 
+}
+
+#addProductTriggerSmallScreen {
+    font-weight: bolder;
+    cursor: pointer; 
+    text-decoration: underline;
+}
+
+.showSmallScreenMenu #closeMenuX {
+    padding: 0.5em;
+    top: 0.5em;
+    color: red;
+    border-radius: 45%;
+    border: 1px red solid;
+    width: fit-content;
+    cursor: pointer; 
+}
+
+.showSmallScreenMenu #closeMenu {
+    color: red;
+    padding: 1em 0 1em 0;
+}
+
+.smallScreenMenuItem {
+    text-decoration: underline;
+}
+
+.smallScreenOpenMenuBtn {
+    position: fixed;
+    top: 4em;
+    overflow: hidden;
+    width: 0%;
+    height: 0%;
+    transform: translate(20em);
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s linear;
+}
+
+.smallScreenOpenMenuBtn.showSmallScreenMenuBtn {
+    position: fixed;
+    right: 2em;
+    top: 4em;
+    width: 2em;
+    height: 2em;
+    padding: 1em;
+    border: lightcyan 1px solid;
+    border-radius: 45%;
+    z-index: 2;
+    visibility: visible;
+    opacity: 1;
+    background-color: lightskyblue;
+    transform: scale(2);
+    cursor: pointer; 
+}

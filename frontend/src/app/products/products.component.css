@@ -1,0 +1,42 @@
+#productQuantity {
+    padding: 1em;
+    font-size: large;
+  }
+
+#productQuantityDiv {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    padding: 1em;
+}
+
+.productsDiv {
+    text-align: center;
+    align-items: center;
+}
+
+.productsCard {
+    width: 15em;
+    height: 15em;
+}
+
+.productsCard:hover {
+    cursor: pointer;
+}
+
+mat-card-title{
+    text-align: center;
+}
+
+mat-card-header {
+    text-align: center;
+    font-size: smaller;
+    color: lightcoral;
+    height: 40%;
+    overflow-y: auto;
+    justify-content: center;
+}
+
+img {
+    height: 5em; 
+    width: 75%;
+}

@@ -1,0 +1,31 @@
+.mainHeader {
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    background-color: lightskyblue;;
+    position: sticky;
+    height: 6em;
+    top:0;
+    z-index: 1;
+}
+
+.mainHeaderXSmall {
+    display: grid;
+    grid-template-columns: 100%;
+    background-color: lightskyblue;;
+    position: sticky;
+    height: 6em;
+    top:0;
+    z-index: 1;
+}
+
+#imgDiv {
+    padding: .5em;
+}
+
+img {
+    width: 10em;
+}
+
+.hideImgDiv {
+    display: none;
+}

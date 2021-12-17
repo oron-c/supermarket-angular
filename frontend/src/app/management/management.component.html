@@ -1,0 +1,66 @@
+<div class="top">
+    <div class="searchProductDivAdmin">
+        <div class="searchBoxAndBtn">
+            <mat-form-field appearance="fill">
+                <mat-label>Search Product By Name</mat-label>
+                <input type="text" matInput [(ngModel)]="productToFind"> <br>
+            </mat-form-field>
+
+            <button mat-raised-button (click)="findProductByName()"
+                [disabled]="!productToFind || productToFind.length<3">
+                <mat-icon>search</mat-icon>
+            </button>
+        </div>
+        <div class="secondHeader">Hello, Admin</div>
+    </div>
+</div>
+
+<div class="layoutMainManagement" fxLayout="row wrap" fxLayoutGap="2px grid" fxLayoutAlign="end">
+
+    <div class="hideAddOrEditProductDiv" [ngClass]="{'showAddOrEditDiv' : productToEdit || addProduct}"
+        [ngClass.sm]="{'showAddOrEditDivSmallScreen' : productToEdit || addProduct}"
+        [ngClass.xs]="{'showAddOrEditDivSmallScreen' : productToEdit || addProduct}">
+        <app-edit-product [productToEdit]="productToEdit" *ngIf="productToEdit"
+            (hideEditComponetntFromManagement)="hideEditComponent()"></app-edit-product>
+        <app-add-product *ngIf="addProduct" (hideAddProductComponentManagement)="hideAddComponent()"></app-add-product>
+    </div>
+
+    <div class="showOnlyMainDiv" [ngClass]="{'showMainDivAndAddOrEditDiv' : productToEdit || addProduct}"
+        [ngClass.sm]="'showOnlyMainDivSmallScreen'" [ngClass.xs]="'showOnlyMainDivSmallScreen'">
+        <div class="categoriesListMenu" [ngClass.md]="'hideMainMenu'" [ngClass.sm]="'hideMainMenu'" [ngClass.xs]="'hideMainMenu'">
+            <div class="addProductButton"><button mat-raised-button (click)="showAddProduct()">Add Product</button>
+            </div>
+            <mat-button-toggle-group>
+                <mat-button-toggle id="0" routerLink="/management/products/all">All</mat-button-toggle>
+                <mat-button-toggle *ngFor="let category of categories" id={{category.categoryId}}
+                    routerLink="/management/products/{{category.categoryId}}">
+                    {{category.categoryName}}
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <div *ngIf="error" class="errorClass">
+            <div *ngIf="error?.status!==0">Error: {{error.error.message}}</div>
+            <div *ngIf="error?.status===0">Unknown error, please try again later.</div>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+
+    <div class="smallScreenMenu" 
+        [ngClass.md]="{'showSmallScreenMenu' : showSmallScreenMenu}"
+        [ngClass.sm]="{'showSmallScreenMenu' : showSmallScreenMenu}"
+        [ngClass.xs]="{'showSmallScreenMenu' : showSmallScreenMenu}">
+        <div id="closeMenuX" (click)="showOrHideSmallMenu()">X</div>
+        <div><span id="addProductTriggerSmallScreen" (click)="showAddProduct()" (click)="showOrHideSmallMenu()">Add
+                Product</span></div>
+        <div class="smallScreenMenuItem"><span routerLink="/management/products/all">All</span></div>
+        <div class="smallScreenMenuItem" *ngFor="let category of categories"><span
+                routerLink="/management/products/{{category.categoryId}}">{{category.categoryName}}</span></div>
+        <div id="closeMenu"><span (click)="showOrHideSmallMenu()">Close</span></div>
+    </div>
+
+    <div class="smallScreenOpenMenuBtn" [ngClass.md]="{'showSmallScreenMenuBtn' : !showSmallScreenMenu}"
+        [ngClass.sm]="{'showSmallScreenMenuBtn' : !showSmallScreenMenu}" [ngClass.xs]="{'showSmallScreenMenuBtn' : !showSmallScreenMenu}">
+        <mat-icon (click)="showOrHideSmallMenu()">menu</mat-icon>
+    </div>
+
+</div>

@@ -1,0 +1,112 @@
+<div *ngIf="error?.error.message" class="errorClass">{{error.error.message}}</div>
+<div class="orderComponentHeader">Review and place your order, {{loginData.fName}}</div>
+<div fxLayout="row wrap" fxLayoutGap="2px grid" fxLayoutAlign="center">
+    <div fxFlex="50%" fxFlex.xs="100%" id="cartItems">
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Search Product</mat-label>
+                <input type="text" matInput [(ngModel)]="productToFind"> <br>
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button routerLink="/main/products/all">Back To Store</button>
+        
+        <h3 class="text-success">Amount Due: ${{totalCartAmount | number : '1.2'}}</h3>
+
+        <div *ngFor="let item of cartItems">
+            <mat-card class="cartItemCard"
+                [ngClass]="{'highLight' : item.productName.toLocaleLowerCase().includes(this.productToFind?.toLocaleLowerCase())
+                    && this.productToFind?.length >= 2 }">
+                <div><img [src]="imageUrl + item.image" /></div>
+                <div>{{item.productName}}</div>
+                <div>{{item.quantity}} Unit<span *ngIf="item.quantity>1">s</span></div>
+                <div>${{item.totalPrice | number : '1.2'}}</div>
+            </mat-card>
+        </div>
+        <br>
+        <h3 class="text-success">Amount Due: ${{totalCartAmount | number : '1.2'}}</h3>
+
+        <button mat-raised-button routerLink="/main/products/all">Back To Store</button>
+    </div>
+
+    <div fxFlex="50%" fxFlex.xs="100%" id="orderShippingInfo">
+        <form [formGroup]="orderForm" (ngSubmit)="placeOrder()">
+
+            <mat-form-field appearance="fill">
+                <mat-label>City</mat-label>
+                <select matNativeControl formControlName="cityControl"
+                    (dblclick)="this.cityControl.setValue(this.loginData.city)" required>
+                    <option value="">Select</option>
+                    <option *ngFor="let city of citiesList" [value]="city.cityName">{{city.cityName}}</option>
+                </select>
+                <mat-error *ngIf="cityControl.errors?.required && cityControl.touched">City is requierd!</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Street</mat-label>
+                <input type="text" matInput formControlName="streetControl"
+                    (dblclick)="this.streetControl.setValue(this.loginData.street)" required> <br>
+                <mat-error *ngIf="streetControl.errors?.required && streetControl.touched">
+                    Street is requierd!
+                </mat-error>
+                <mat-error
+                *ngIf="(streetControl.errors?.minlength || streetControl.errors?.maxlength) && streetControl.touched">
+                Street must be 4-30 characters long!
+            </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Shipping Date</mat-label>
+                <input type="date" matInput formControlName="shippingDateControl" (click)="setIsDateAvailableToTrue()"
+                    [min]="formatTomorrowsDate()" required> <br>
+                <mat-error *ngIf="shippingDateControl.errors?.required && shippingDateControl.touched">
+                    Date is requierd!
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Credit Card</mat-label>
+                <input type="number" matInput formControlName="creditCardControl" (keyup)="checkCreditCardType()"
+                    required>
+                <mat-error *ngIf="creditCardControl.errors?.required && creditCardControl.touched">
+                    Credit Card is requierd!
+                </mat-error>
+                <mat-error *ngIf="creditCardControl.errors?.pattern">
+                    Invalid credit card!
+                </mat-error>
+            </mat-form-field>
+            <div *ngIf="!creditCardControl.errors?.required ">Card type: {{cardType}}</div>
+            <br>
+            <div class="errorClass">
+                <div *ngIf="!isDateAvailable">
+                    Not available shipping for {{shippingDateControl.value | date: 'dd/MM/yyyy'}}, please select a
+                    different shipping date
+                </div>
+                <div *ngIf="shippingDateControl.value < formatTomorrowsDate()">Date must be after today</div>
+                <div *ngIf="error?.error.userId">{{error.error.userId}}</div>
+                <div *ngIf="error?.error.cartId">{{error.error.cartId}}</div>
+                <div *ngIf="error?.error.cartPrice">{{error.error.cartPrice}}</div>
+                <div *ngIf="error?.error.shippingCity">{{error.error.shippingCity}}</div>
+                <div *ngIf="error?.error.shippingStreet">{{error.error.shippingStreet}}</div>
+                <div *ngIf="error?.error.shippingDate">{{error.error.shippingDate}}</div>
+                <div *ngIf="error?.error.orderDate">{{error.error.orderDate}}</div>
+                <div *ngIf="error?.error.creditCardLast4">{{error.error.creditCardLast4}}</div>
+            </div>
+            <button mat-raised-button type="submit"
+                [disabled]="cityControl.errors || streetControl.errors || shippingDateControl.errors || creditCardControl.errors || shippingDateControl.value < formatTomorrowsDate() || !isDateAvailable || totalCartAmount <= 0">Order
+                <mat-icon>credit_card</mat-icon>
+            </button>
+        </form>
+    </div>
+</div>
+
+
+<ng-template #callOrderCompleteDialog>
+    <h2 matDialogTitle>Order success</h2>
+    <div>
+        To download your invoice click <span id="downloadInvoice" (click)="saveInvoice()">here</span>
+    </div>
+    <mat-dialog-actions>
+        <button mat-raised-button matDialogClose="yes" routerLink="/main/products/all">OK</button>
+    </mat-dialog-actions>
+</ng-template>

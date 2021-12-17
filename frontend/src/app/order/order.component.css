@@ -1,0 +1,32 @@
+.highLight {
+    background-color: yellow;
+}
+
+#downloadInvoice {
+    color: blue;
+    text-decoration: underline;
+}
+
+#downloadInvoice:hover {
+    cursor: pointer; 
+}
+
+.orderComponentHeader {
+    position: sticky;
+    top: 5em;
+    padding: 1em;
+    background-color: lightskyblue;
+    font-size: larger;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.cartItemCard {
+    display: grid;
+    grid-template-columns: 25% 30% 25% 20%;
+}
+
+img {
+    height: 5em; 
+    width: 75%
+}

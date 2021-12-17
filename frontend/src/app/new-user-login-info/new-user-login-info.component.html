@@ -1,0 +1,72 @@
+<div id="newUserLoginInfoFormDiv">
+    <form [formGroup]="newUserLoginInfoForm" (ngSubmit)="goToRegister()">
+
+        <mat-form-field appearance="fill">
+            <mat-label>ID Number</mat-label>
+            <input type="text" matInput formControlName="userIdControl" required>
+            <mat-error *ngIf="userIdControl.errors?.pattern && userIdControl.touched">
+                ID must be a number!
+            </mat-error>
+            <mat-error
+                *ngIf="(userIdControl.errors?.minlength || userIdControl.errors?.maxlength) && userIdControl.touched">
+                ID must be 6-9 digits!
+            </mat-error>
+            <mat-error *ngIf="userIdControl.errors?.required && userIdControl.touched">
+                ID number is requierd!
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Username (your email)</mat-label>
+            <input type="email" matInput formControlName="usernameControl" required>
+            <mat-error *ngIf="usernameControl.errors?.required && usernameControl.touched">
+                Username is requierd!
+            </mat-error>
+            <mat-error *ngIf="usernameControl.errors?.email && usernameControl.touched">
+                Username must be a valid email!
+            </mat-error>
+            <mat-error
+                *ngIf="(usernameControl.errors?.minlength || usernameControl.errors?.maxlength) && usernameControl.touched">
+                Username must be 4-30 characters!
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput formControlName="passwordControl" required>
+            <mat-error *ngIf="passwordControl.errors?.required && passwordControl.touched">
+                Password is requierd!
+            </mat-error>
+            <mat-error
+                *ngIf="(passwordControl.errors?.minlength || passwordControl.errors?.maxlength) && passwordControl.touched">
+                Password must be 4-30 characters!
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" matInput formControlName="confirmPasswordControl" required>
+            <mat-error *ngIf="confirmPasswordControl.errors?.required && confirmPasswordControl.touched">
+                Confirm password is requierd!
+            </mat-error>
+        </mat-form-field>
+        <br> <br>
+
+        <div class="errorClass">
+            <div *ngIf="userIdIsTaken">ID number already exists!</div>
+            <div *ngIf="userNameIsTaken">Email address already exists!</div>
+            <div *ngIf="passwordControl.value !== confirmPasswordControl.value && confirmPasswordControl.touched">
+                Password and confirm password are not matching.
+            </div>
+            <br>
+        </div>
+
+        <button mat-raised-button type="submit"
+            [disabled]="userIdControl.errors || usernameControl.errors || passwordControl.errors || passwordControl.value !== confirmPasswordControl.value">
+            Next <mat-icon>arrow_forward</mat-icon>
+        </button>
+    </form>
+
+    <div>Already A User? <a href="login">Login</a></div>
+
+</div>

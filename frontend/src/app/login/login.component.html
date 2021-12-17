@@ -1,0 +1,61 @@
+<div fxLayout="row wrap" fxLayoutGap="2px grid" fxLayoutAlign="center" id="welcomeAndLogin">
+
+    <div class="loginFormView" [ngClass.sm]="'smallScreenView'" [ngClass.xs]="'extraSmallScreenView'">
+
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <mat-form-field appearance="fill">
+                <mat-label>User Name</mat-label>
+                <input type="text" matInput formControlName="usernameControl" (keyup)="cleanError()" required> <br>
+                <mat-error *ngIf="usernameControl.errors?.required && usernameControl.touched">
+                    User name is requierd!
+                </mat-error>
+                <mat-error *ngIf="(usernameControl.errors?.minlength || usernameControl.errors?.maxlength) && usernameControl.touched">
+                    User name must be 4-30 characters!
+                </mat-error>
+                <mat-error *ngIf="usernameControl.errors?.email && usernameControl.touched">
+                    User name must be a valid email address!
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="passwordControl" (keyup)="cleanError()" required> <br>
+                <mat-error *ngIf="passwordControl.errors?.required && passwordControl.touched">
+                    Password is requierd!
+                </mat-error>
+                <mat-error *ngIf="(passwordControl.errors?.minlength || passwordControl.errors?.maxlength) && passwordControl.touched">
+                    Password must be 4-30 characters!
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <br>
+            <div *ngIf="error" class="errorClass">
+                <div *ngIf="error?.error.username">{{error.error.username}}</div>
+                <div *ngIf="error?.error.password">{{error.error.password}}</div>
+                <div *ngIf="error?.error.message">{{error.error.message}}</div>
+                <div *ngIf="error?.status===0">Unknown error, please try again later.</div>
+            </div>
+            <button mat-raised-button type="submit" [disabled]="passwordControl.errors || usernameControl.errors">
+                Login
+            </button>
+        </form>
+        <div>Not yet registered? <a href="new-user-login-info">Register Now</a></div>
+    </div>
+
+    <div id="showGreeting" [ngClass.sm]="'smallScreenView'" [ngClass.xs]="'extraSmallScreenView'">
+        <app-greeting [events]="eventsSubject.asObservable()"></app-greeting>
+    </div>
+    
+    <div id="about" [ngClass.sm]="'smallScreenView'" [ngClass.xs]="'extraSmallScreenView'">
+        <div>
+            <h2>Welcome to our online Super Market!</h2>
+            All of our products are fresh from the last 72 hours. <br>
+            Our delivery will arrive in just few days.<br> 
+            Everything is packed in the best way. <br>
+            We offer a 7-day money-back guarantee if you are unhappy with any of the products!<br>
+            Happy shopping! :-)
+        </div>
+        <div id="storeImg"><img src="http://localhost:4000/api/products/images/my-online-grocery-store.jpg"></div>
+    </div>
+
+</div>

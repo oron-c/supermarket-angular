@@ -1,0 +1,15 @@
+#editProductComponentDiv {
+    padding: 2em;
+}
+
+#saveOrCancelBtnDiv {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 2px;
+    padding-top: 3em;
+}
+
+#saveOrCancelBtnDiv button {
+    min-width: fit-content;
+    width: 45%
+}

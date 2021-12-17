@@ -1,0 +1,63 @@
+<div id="registerFormDiv">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+        <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input type="text" matInput formControlName="firstNameControl" required>
+            <mat-error *ngIf="firstNameControl.errors?.required && firstNameControl.touched">
+                First name is requierd!
+            </mat-error>
+            <mat-error
+                *ngIf="(firstNameControl.errors?.minlength || firstNameControl.errors?.maxlength) && firstNameControl.touched">
+                First name must be 2-30 characters long
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input type="text" matInput formControlName="lastNameControl" required>
+            <mat-error *ngIf="lastNameControl.errors?.required && lastNameControl.touched">
+                Last name is requierd!
+            </mat-error>
+            <mat-error
+                *ngIf="(lastNameControl.errors?.minlength || lastNameControl.errors?.maxlength) && lastNameControl.touched">
+                Last name must be 2-30 characters long
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>City</mat-label>
+            <select matNativeControl formControlName="cityControl" required>
+                <option value="">Select</option>
+                <option *ngFor="let city of citiesList" [value]="city.cityName">{{city.cityName}}</option>
+            </select>
+            <mat-error *ngIf="cityControl.errors?.required && cityControl.touched">City is requierd!</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Street</mat-label>
+            <input type="text" matInput formControlName="streetControl" required>
+            <mat-error *ngIf="streetControl.errors?.required && streetControl.touched">
+                Street is requierd!
+            </mat-error>
+            <mat-error
+                *ngIf="(streetControl.errors?.minlength || streetControl.errors?.maxlength) && streetControl.touched">
+                Street must be 4-30 characters long
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <div *ngIf="error" class="errorClass">
+            <div *ngIf="error?.error.userId">{{error.error.userId}}</div>
+            <div *ngIf="error?.error.username">{{error.error.username}}</div>
+            <div *ngIf="error?.error.password">{{error.error.password}}</div>
+            <div *ngIf="error?.error.fName">{{error.error.fName}}</div>
+            <div *ngIf="error?.error.lName">{{error.error.lName}}</div>
+            <div *ngIf="error?.error.city">{{error.error.city}}</div>
+            <div *ngIf="error?.error.street">{{error.error.street}}</div>
+            <div *ngIf="error?.error.message">{{error.error.message}}</div>
+        </div>
+        <button mat-raised-button type="submit"
+            [disabled]="firstNameControl.errors || lastNameControl.errors || cityControl.errors || streetControl.errors">Register</button>
+
+    </form>
+</div>

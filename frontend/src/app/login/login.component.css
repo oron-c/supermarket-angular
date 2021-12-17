@@ -1,0 +1,54 @@
+#welcomeAndLogin {
+    padding-top: 5em;
+    height: 40em;
+}
+
+.loginFormView {
+    width: 32%;
+    min-width: fit-content;
+    background-color: lightblue;
+    margin: .5em;
+    min-height: fit-content;
+}
+
+.loginFormView > * {
+    padding: 2em 0;
+}
+
+#showGreeting {
+    width: 32%;
+    min-width: fit-content;
+    background-color: lightskyblue;
+    margin: .5em;
+    min-height: fit-content;
+}
+
+#about {
+    display: grid;
+    width: 32%; 
+    min-width: min-content;
+    background-color: lightblue;
+    margin: .5em;
+    min-height: fit-content;
+}
+
+#about > :first-child {
+    padding: 2em 0;
+}
+
+#about > :last-child {
+    padding-bottom: 2em;
+}
+
+#about img {
+    width: 50%;
+}
+
+.smallScreenView {
+    flex: 100%;
+    min-height: 75%;
+}
+.extraSmallScreenView {
+    flex: 100%;
+    min-height: 75%;
+}

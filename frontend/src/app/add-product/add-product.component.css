@@ -1,0 +1,15 @@
+#addProductFormDiv {
+    padding: 2em;
+}
+
+#addOrCancelBtnDiv {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 2px;
+    padding-top: 3em;
+}
+
+#addOrCancelBtnDiv button {
+    min-width: fit-content;
+    width: 45%
+}
